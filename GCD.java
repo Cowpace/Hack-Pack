@@ -1,7 +1,7 @@
 public class GCD {
-       // Iterative solution
+       
+    // Iterative solution
     public static int gcdTwoNumbers(int a, int b) {
-
 
         if(a == 0 || b == 0) return 0;
 
