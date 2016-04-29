@@ -1,4 +1,4 @@
-# Hack-Pack
+# An Algorithm Hack-Pack
 
 # David:  
         1. Line - Line Intersection    
