@@ -1,3 +1,4 @@
+
 public class GCD {
 
     // Iterative solution using Euclid's Algorithm
