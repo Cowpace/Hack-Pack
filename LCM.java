@@ -1,6 +1,4 @@
-/**
- * Created by Patel on 4/30/2016.
- */
+
 public class LCM {
 
     public static long lcmTwoNumbers(long a, long b) {
