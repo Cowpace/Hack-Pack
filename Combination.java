@@ -9,7 +9,7 @@ public class Combination {
 
             for (int i = index; i < str.length(); i++) {
 
-                //Add the character at index i and print out the current combination
+                //Add the character at index i and for example, print out the current combination 
                 result = result.append(str.charAt(i));
                 System.out.println(result.toString());
 
