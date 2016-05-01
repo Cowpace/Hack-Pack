@@ -4,7 +4,7 @@
 
 import java.util.*;
 
-public class intersect {
+public class intersectGuha {
 
 	public static void main(String[] args) {
 
