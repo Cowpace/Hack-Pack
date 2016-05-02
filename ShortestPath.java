@@ -1,5 +1,21 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.PriorityQueue;
 import java.util.Scanner;
+
+class Tuple implements Comparable<Tuple>{
+	int v;
+	int pri;
+	public Tuple(int a, int b){
+		v = a;
+		pri = b;
+	}
+	@Override
+	public int compareTo(Tuple arg0) {
+		// TODO Auto-generated method stub
+		return new Integer(pri).compareTo(arg0.pri);
+	}
+}
 
 public class ShortestPath {
 
@@ -109,6 +125,68 @@ public class ShortestPath {
 			}
 		}
 		return ans;
+	}
+	//O(VE) (if you use an edge list) use for neg edge weights and cycles
+	public static int[] bellmanford(int[][] matrix, int start){
+		int[] dist = new int[matrix.length];
+		
+		Arrays.fill(dist, Integer.MAX_VALUE);
+		dist[start] = 0;
+		
+		while (true){
+			//for each edge
+			boolean changed = false;
+			for (int i=0; i < matrix.length; i++){
+				for (int j=0; j < matrix.length; j++){
+					if (dist[i] != Integer.MAX_VALUE && matrix[i][j] != Integer.MAX_VALUE && dist[i] + matrix[i][j] < dist[j]){
+						dist[j] = dist[i] + matrix[i][j];
+						changed = true;
+					}
+				}
+				
+			}
+			if (!changed)
+				break;
+		}
+		//check for negative cycles
+		for (int i=0; i < matrix.length; i++){
+			for (int j=0; j < matrix.length; j++){
+				if (dist[i] != Integer.MAX_VALUE && matrix[i][j] != Integer.MAX_VALUE && dist[i] + matrix[i][j] < dist[j]){
+					//negative cycle exists
+					//do whatever the problem says to do for this case
+				}
+			}
+			
+		}
+		return dist;
+	}
+	//runs in O(E + V log V) w/ priority q, V^2 without. Do not use with neg edge weights
+	public static int dijkstras(int start, int end, int[][] matrix){
+		int[] dist = new int[matrix.length];
+		boolean[] v = new boolean[matrix.length];
+		
+		Arrays.fill(dist, Integer.MAX_VALUE);
+		dist[start] = 0;
+		PriorityQueue<Tuple> q = new PriorityQueue<Tuple>();
+		for (int i=0; i < matrix.length; i++){
+			q.add(new Tuple(i, dist[i]));
+		}
+		
+		while (!q.isEmpty()){
+			Tuple cur = q.poll();
+			v[cur.v] = true;
+			
+			for (int i=0; i < matrix[cur.v].length; i++){
+				if (!v[i]){ //for dealing with priority queue duplicates
+					int d = dist[cur.v] + matrix[cur.v][i];
+					if (d < dist[i]){
+						dist[i] = d;
+						q.add(new Tuple(i, d));
+					}
+				}
+			}
+		}
+		return dist[end];
 	}
 
 }
